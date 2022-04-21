@@ -12,7 +12,7 @@ Add these lines inside an existing `Packages.swift` file:
 ```swift
 dependencies: [
     .package(url: "https://github.com/Denis5161/CodableValue.git", from: "2.0.1")
-    ]
+]
 ```
 Or use Xcode to add a package. See [Swift Package Documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
 ## Requirements
