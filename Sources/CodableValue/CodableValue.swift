@@ -1,3 +1,9 @@
+//
+//  CodableValue.swift
+//
+//
+//  Created by Denis Goldberg on 20.04.22.
+//
 import UIKit
 
 ///A property wrapper that adds Codable conformance to a generic type `T`, when the type cannot directly conform to Codable.

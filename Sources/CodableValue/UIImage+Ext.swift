@@ -7,8 +7,6 @@
 
 import UIKit
 
-
-
 extension UIImage: Encodable {
     ///Compression Quality to be used for compressing a UIImage to JPEG data.
     private enum CompressionQuality {
