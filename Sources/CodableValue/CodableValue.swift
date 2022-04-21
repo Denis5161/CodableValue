@@ -10,7 +10,7 @@ import UIKit
 ///A property wrapper that adds Codable conformance to a generic type `T`, when the type cannot directly conform to Codable.
 ///
 ///The Type `T` implements the `Encodable` protocol and is restricted to be one of the `SupportedCodableTypes` inside the property wrapper.
-///The implementation details of decoding a value from the decoder necessitate an extra `type` value, because I have no way of knowing what type is inside the wrappedValue due to its generic nature. Also setting property `isOptional` to tell if the property can have no value.
+///The implementation details of decoding a value from the decoder necessitate an extra `type` value, because I have no way of knowing what type is inside the wrappedValue due to its generic nature.
 ///
 @propertyWrapper
 public struct CodableValue<T: Encodable>: Codable {
