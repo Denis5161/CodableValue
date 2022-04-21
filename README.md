@@ -25,11 +25,11 @@ For example:
     @CodableValue var color: UIColor
 ```
 
-When initializing the value, for example in an init method:
+When initializing the value, for example in an init method of a custom type:
 ```swift
     init(image: UIImage?, color: UIColor) {
-        self.image = CodableValue(wrappedValue: image, type: .image, isOptional: true)
-        self.color = CodableValue(wrappedValue: color, type: .color, isOptional: false)
+        self._image = CodableValue(wrappedValue: image, type: .image, isOptional: true)
+        self._color = CodableValue(wrappedValue: color, type: .color, isOptional: false)
     }
 ```
 
