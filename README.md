@@ -2,7 +2,7 @@
 
 Decode UIColor and UIImage by utilizing Swift's Property Wrappers included in Swift 5.1
 
-## How to install
+## Installation
 Only Swift Package Manager is supported as of this release. I have no plans to support other package managers, like CocoaPods or Carthage.
 
 Add these lines to an existing `Packages.swift` file:
@@ -11,7 +11,7 @@ Add these lines to an existing `Packages.swift` file:
 ```
 Or use Xcode to add a package. See [Swift Package Documentation.](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
 
-## How to use
+## How to Use
 The type must implement its own `swift Encodable` function.
 
 Declare a property wrapper on a type that you wish to use.
