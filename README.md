@@ -9,7 +9,7 @@ Add these lines to an existing `Packages.swift` file:
 ```swift
     
 ```
-Or use Xcode to add a package. See [How to Install Swift Packages]() for more info.
+Or use Xcode to add a package. See [How to Install Swift Packages](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
 
 ## How to use
 The type must implement its own `swift Encodable` function.

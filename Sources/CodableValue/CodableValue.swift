@@ -19,7 +19,7 @@ public struct CodableValue<T: Encodable>: Codable {
     private let isOptional: Bool
     
     
-    public private(set) var wrappedValue: T
+    public var wrappedValue: T
     
     ///Initializes `CodableValue`.
     ///
