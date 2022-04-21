@@ -7,7 +7,7 @@ Only Swift Package Manager is supported as of this release. I have no plans to s
 
 Add these lines to an existing `Packages.swift` file:
 ```swift
-    .package(url: "https://github.com/Denis5161/CodableValue",
+    .package(url: "https://github.com/Denis5161/CodableValue")
 ```
 Or use Xcode to add a package. See [Swift Package Documentation.](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
 
