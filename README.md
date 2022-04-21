@@ -41,7 +41,7 @@ I have included a default extension on UIColor and UIImage for `Encodable`. Feel
 ## Purpose of this Package
 The purpose of this package was for me to learn about Property Wrappers. Some types don't conform to Codable and can't synthesize the needed methods automatically. When a data model only has a few of these properties - while the rest support Codable - then it's better to have the compiler synthesize Codable conformance automatically instead of writing a lot of boilerplate code for properties that already support it. 
 Adding Encodable conformance to a UIKit type works easily inside of an extension on that type. But Decodable conformance does not work, because it is a required initializer and I'm guessing the implementation details of UIKit classes stop one from creating the `init(from decoder: Decoder)` method inside an extension.
-I have spent a considerable amount of time fiddling with this, and this solution seems the most stable and easiest to understand from an API perspective.
+I have spent a considerable amount of time fiddling with this, and this solution seems to be the most stable and easiest to understand from an API perspective.
 
 ## License
 Provided under the MIT License. See [LICENSE](https://github.com/Denis5161/CodableValue/blob/main/LICENSE) for more info.
