@@ -28,7 +28,7 @@ Declare a property wrapper on a property that you wish to use. For example:
     @CodableValue(type: .color) var color: UIColor = .systemBlue
 ```
 
-When initializing the value, for example in an init method of a custom type:
+When initializing the values, for example in an init method of a custom type:
 ```swift
     init(image: UIImage?, color: UIColor) {
         self.image = image
