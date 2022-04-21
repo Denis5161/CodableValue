@@ -17,7 +17,8 @@ dependencies: [
 Or use Xcode to add a package. See [Swift Package Documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
 ## Requirements
 - iOS 13.0+
-- Swift 5.1+
+- Swift 5.6+
+
 ## How to Use
 The type must implement its own `Encodable` function.
 
