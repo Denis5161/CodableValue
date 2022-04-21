@@ -11,7 +11,7 @@ Only Swift Package Manager is supported as of this release. I have no plans to s
 Add these lines inside an existing `Packages.swift` file:
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Denis5161/CodableValue.git", from: "1.0.0")
+    .package(url: "https://github.com/Denis5161/CodableValue.git", from: "2.0.0")
     ]
 ```
 Or use Xcode to add a package. See [Swift Package Documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
@@ -25,15 +25,15 @@ The type must implement its own `Encodable` function.
 Declare a property wrapper on a type that you wish to use.
 For example:
 ```swift
-    @CodableValue var image: UIImage?
-    @CodableValue var color: UIColor
+    @CodableValue(type: .image) var image: UIImage? = nil
+    @CodableValue(type: .color) var color: UIColor = .systemBlue
 ```
 
 When initializing the value, for example in an init method of a custom type:
 ```swift
     init(image: UIImage?, color: UIColor) {
-        self._image = CodableValue(wrappedValue: image, type: .image, isOptional: true)
-        self._color = CodableValue(wrappedValue: color, type: .color, isOptional: false)
+        self.image = image
+        self.color = color
     }
 ```
 

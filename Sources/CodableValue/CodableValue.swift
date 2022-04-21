@@ -8,9 +8,13 @@ import UIKit
 @propertyWrapper
 public struct CodableValue<T: Encodable>: Codable {
     ///`CodableValue` supports the Encoding and Decoding of these UIKit types.
-    public enum SupportedCodableTypes: String, Codable {
-        case image, color
-    }
+    ///
+    /// Use any of the supplied cases to provide `CodableValue` with the correct wrappedValue type.
+    /// 
+    /// - Important: Using mismatching types will throw a `DecodingValueError` when `CodableValue` is initialized from a Decoder.
+    public enum SupportedCodableTypes: String, Codable { case image, color }
+    
+    private enum CodingKeys: CodingKey { case type, wrappedValue }
     
     ///The type of the value.
     private let type: SupportedCodableTypes
@@ -30,29 +34,34 @@ public struct CodableValue<T: Encodable>: Codable {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         type = try container.decode(SupportedCodableTypes.self, forKey: .type)
-        
+    
         switch type {
         case .color:
-            if let colorRGBA = try container.decode([UIKit.UIColor.ColorRGBA : CoreGraphics.CGFloat]?.self, forKey: .wrappedValue) {
-                guard let color = UIColor(from: colorRGBA) as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
-                wrappedValue = color
-            } else {
-                guard T.self == UIColor?.self else { throw DecodingValueError<T>.nonOptionalDecodingError }
-                guard let none = Optional<UIColor>.none as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
-                
-                wrappedValue = none
-            }
+            wrappedValue = try Self.decode(UIColor.self, from: container, with: [UIKit.UIColor.ColorRGBA : CoreGraphics.CGFloat]?.self, initializer: UIColor.init(from:))
         case .image:
-            if let imageData = try container.decode(Data?.self, forKey: .wrappedValue) {
-                guard let image = UIImage(data: imageData) as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
-                wrappedValue = image
-            } else {
-                guard T.self == UIImage?.self else { throw DecodingValueError<T>.nonOptionalDecodingError }
-                guard let none = Optional<UIImage>.none as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
-                wrappedValue = none
-            }
-            
+            wrappedValue = try Self.decode(UIImage.self, from: container, with: Data?.self, initializer: UIImage.init(data:))
         }
+    }
+    
+    ///Modular function to simplify the code base.
+    /// - Parameters:
+    ///     - base: Relevant for the `initializer` parameter. What the initalizer method returns.
+    ///     - container: The container that holds the requested data for the wrapped value.
+    ///     - dataDecoding: Must be Decodable. The swift representation of what is actually saved inside the container.
+    ///     - initializer: A function that initializes an object by passing in the decoded data and returns the object as an optional `Base` type.
+    /// - Returns:
+    ///     The decoded object as type `T`.
+    /// - Throws: DecodingValueError when decoding fails.
+    private static func decode<Base, DataDecoding: Decodable>(_ base: Base.Type, from container: KeyedDecodingContainer<CodingKeys>, with dataDecoding: DataDecoding?.Type, initializer: (DataDecoding)->Base?) throws -> T {
+        if let data = try container.decode(dataDecoding, forKey: .wrappedValue) {
+            guard let initialized = initializer(data) as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
+            return initialized
+        } else {
+            guard T.self is ExpressibleByNilLiteral.Type else { throw DecodingValueError<T>.nonOptionalDecodingError }
+            guard let noValue = Base?.none as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
+            return noValue
+        }
+        
     }
 }
 
