@@ -20,7 +20,7 @@ Or use Xcode to add a package. See [Swift Package Documentation](https://github.
 - Swift 5.6+
 
 ## How to Use
-The type must implement its own `Encodable` function.
+The wrapped property must implement `Encodable` on its own.
 
 Declare a property wrapper on a property that you wish to use.
 For example:
