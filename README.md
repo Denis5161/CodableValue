@@ -22,7 +22,7 @@ Or use Xcode to add a package. See [Swift Package Documentation](https://github.
 ## How to Use
 The type must implement its own `Encodable` function.
 
-Declare a property wrapper on a type that you wish to use.
+Declare a property wrapper on a property that you wish to use.
 For example:
 ```swift
     @CodableValue(type: .image) var image: UIImage? = nil
