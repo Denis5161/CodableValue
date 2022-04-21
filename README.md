@@ -9,7 +9,7 @@ Add these lines to an existing `Packages.swift` file:
 ```swift
     .package(url: "https://github.com/Denis5161/CodableValue")
 ```
-Or use Xcode to add a package. See [Swift Package Documentation.](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
+Or use Xcode to add a package. See [Swift Package Documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
 
 ## How to Use
 The type must implement its own `swift Encodable` function.
