@@ -22,8 +22,7 @@ Or use Xcode to add a package. See [Swift Package Documentation](https://github.
 ## How to Use
 The wrapped property must implement `Encodable` on its own.
 
-Declare a property wrapper on a property that you wish to use.
-For example:
+Declare a property wrapper on a property that you wish to use. For example:
 ```swift
     @CodableValue(type: .image) var image: UIImage? = nil
     @CodableValue(type: .color) var color: UIColor = .systemBlue
