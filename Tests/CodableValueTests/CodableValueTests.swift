@@ -13,7 +13,7 @@ final class CodableValueTests: XCTestCase {
     private let decoder = JSONDecoder()
     
     func testCodableOptionalImage() {
-        let optionalImage = CodableValue(wrappedValue: TestImage.image, type: .image, isOptional: true)
+        let optionalImage = CodableValue(wrappedValue: TestImage.image, type: .image)
     
         XCTAssertNoThrow(try encoder.encode(optionalImage))
         
@@ -30,7 +30,7 @@ final class CodableValueTests: XCTestCase {
     }
     
     func testCodableOptionalNilImage() {
-        let optionalImage = CodableValue(wrappedValue: nil as UIImage?, type: .image, isOptional: true)
+        let optionalImage = CodableValue(wrappedValue: nil as UIImage?, type: .image)
         
         XCTAssertNoThrow(try encoder.encode(optionalImage))
         
@@ -48,7 +48,7 @@ final class CodableValueTests: XCTestCase {
     }
     
     func testCodableNonOptionalImage() {
-        let image = CodableValue(wrappedValue: TestImage.image!, type: .image, isOptional: false)
+        let image = CodableValue(wrappedValue: TestImage.image ?? UIImage(), type: .image)
 
         XCTAssertNoThrow(try encoder.encode(image))
 
@@ -63,7 +63,7 @@ final class CodableValueTests: XCTestCase {
     }
     
     func testCodableOptionalColor() {
-        let optionalColor = CodableValue(wrappedValue: UIColor.init(red: 1, green: 1, blue: 1, alpha: 1) as UIColor?, type: .color, isOptional: true)
+        let optionalColor = CodableValue(wrappedValue: UIColor.init(red: 1, green: 1, blue: 1, alpha: 1) as UIColor?, type: .color)
         
         XCTAssertNoThrow(try encoder.encode(optionalColor))
         
@@ -76,7 +76,7 @@ final class CodableValueTests: XCTestCase {
     }
     
     func testCodableOptionalNilColor() {
-        let optionalColor = CodableValue(wrappedValue: nil as UIColor?, type: .color, isOptional: true)
+        let optionalColor = CodableValue(wrappedValue: nil as UIColor?, type: .color)
         
         XCTAssertNoThrow(try encoder.encode(optionalColor))
         let encoded = try! encoder.encode(optionalColor)
@@ -89,7 +89,7 @@ final class CodableValueTests: XCTestCase {
     }
     
     func testCodableNonOptionalColor() {
-        let color = CodableValue(wrappedValue: UIColor.init(red: 1, green: 1, blue: 1, alpha: 1), type: .color, isOptional: false)
+        let color = CodableValue(wrappedValue: UIColor.init(red: 1, green: 1, blue: 1, alpha: 1), type: .color)
         
         XCTAssertNoThrow(try encoder.encode(color))
         

@@ -15,10 +15,6 @@ public struct CodableValue<T: Encodable>: Codable {
     ///The type of the value.
     private let type: SupportedCodableTypes
     
-    ///Inidicates if the decoded value can also be nil, if no value was present during encoding.
-    private let isOptional: Bool
-    
-    
     public var wrappedValue: T
     
     ///Initializes `CodableValue`.
@@ -26,17 +22,14 @@ public struct CodableValue<T: Encodable>: Codable {
     ///- Parameters:
     ///     - wrappedValue: The value of the wrapped property.
     ///     - type: The type of the value, which must be one of the supported types.
-    ///     - isOptional: Pass `true` if `wrappedValue` is an `Optional` value.
-    public init(wrappedValue: T, type: SupportedCodableTypes, isOptional: Bool) {
+    public init(wrappedValue: T, type: SupportedCodableTypes) {
         self.wrappedValue = wrappedValue
         self.type = type
-        self.isOptional = isOptional
     }
     
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         type = try container.decode(SupportedCodableTypes.self, forKey: .type)
-        isOptional = try container.decode(Bool.self, forKey: .isOptional)
         
         switch type {
         case .color:
@@ -44,17 +37,17 @@ public struct CodableValue<T: Encodable>: Codable {
                 guard let color = UIColor(from: colorRGBA) as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
                 wrappedValue = color
             } else {
-                guard isOptional else { throw DecodingValueError<T>.nonOptionalDecodingError }
+                guard T.self == UIColor?.self else { throw DecodingValueError<T>.nonOptionalDecodingError }
                 guard let none = Optional<UIColor>.none as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
+                
                 wrappedValue = none
             }
-
         case .image:
             if let imageData = try container.decode(Data?.self, forKey: .wrappedValue) {
                 guard let image = UIImage(data: imageData) as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
                 wrappedValue = image
             } else {
-                guard isOptional else { throw DecodingValueError<T>.nonOptionalDecodingError }
+                guard T.self == UIImage?.self else { throw DecodingValueError<T>.nonOptionalDecodingError }
                 guard let none = Optional<UIImage>.none as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
                 wrappedValue = none
             }
