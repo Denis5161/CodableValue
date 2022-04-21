@@ -8,13 +8,13 @@
 import UIKit
 
 extension UIColor {
-    ///Different color values, provided in a type-safe way.
+    ///Different color keys, provided in a type-safe way.
     enum ColorRGBA: String, Codable {
         case red, green, blue, alpha
     }
     
     ///Initialize a `UIColor` from a dictionary with `CGFloat` values.
-    ///- Parameter dict: The dictionary holds its keys from the `UIColor.ColorRGBA` enum. The values range from `0` to `1.0`.
+    ///- Parameter dict: The dictionary holds its values with `UIColor.ColorRGBA` keys. The values range from `0.0` to `1.0`.
     convenience init(from dict: [UIColor.ColorRGBA : CGFloat]) {
         self.init(red: dict[.red]!, green: dict[.green]!, blue: dict[.blue]!, alpha: dict[.alpha]!)
     }
