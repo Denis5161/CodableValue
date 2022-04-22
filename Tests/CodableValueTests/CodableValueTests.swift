@@ -38,7 +38,7 @@ final class CodableValueTests: XCTestCase {
         let decoder = JSONDecoder()
         
         XCTAssertThrowsError(try decoder.decode(CodableValue<UIImage>.self, from: encoded))
-        XCTAssertThrowsError(try decoder.decode(CodableValue<UIImage?>.self, from: encoded))
+        XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage?>.self, from: encoded))
         
     }
     
@@ -75,9 +75,9 @@ final class CodableValueTests: XCTestCase {
         
         XCTAssertNoThrow(try encoder.encode(optionalColor))
         let encoded = try! encoder.encode(optionalColor)
-        print(String(data: encoded, encoding: .utf8)!)
+
         XCTAssertThrowsError(try decoder.decode(CodableValue<UIColor>.self, from: encoded))
-        XCTAssertThrowsError(try decoder.decode(CodableValue<UIColor?>.self, from: encoded))
+        XCTAssertNoThrow(try decoder.decode(CodableValue<UIColor?>.self, from: encoded))
         
     }
     
