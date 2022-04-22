@@ -42,6 +42,7 @@ init(image: UIImage?, color: UIColor) {
 
 ## Good to Know
 `CodableValue` conforms to `Equatable`, if the wrapped value also conforms to it.
+
 `CodableValue` conforms to `Hashable`, if the wrapped value also conforms to it.
 
 I have included a default extension on UIColor and UIImage for `Encodable`. Feel free to change the implementation.
