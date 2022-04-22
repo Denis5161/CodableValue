@@ -9,10 +9,9 @@
 
 import UIKit
 
-extension UIImage: CodableValueSupported {
-    public static let type = SupportedCodableTypes.image
+extension UIImage {
     
-    /// The File Types that UIImage can be encoded as.
+    /// The file types that UIImage can be encoded into.
     public enum EncodingFileType {
         case jpeg, png
     }
@@ -38,11 +37,17 @@ extension UIImage: CodableValueSupported {
         }
     }
 
+
+}
+
+extension UIImage: CodableValueSupported {
+    public static let type = SupportedCodableTypes.image
+    
     public func encode(to encoder: Encoder) throws {
         let imageData = data()
         var container = encoder.singleValueContainer()
         try container.encode(imageData)
-    }
+    }  
 }
 
 #endif
