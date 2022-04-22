@@ -34,5 +34,4 @@ extension NSImage: CodableValueSupported {
         try container.encode(imageData)
     }
 }
-
 #endif
