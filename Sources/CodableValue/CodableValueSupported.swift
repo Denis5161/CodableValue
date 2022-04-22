@@ -5,7 +5,6 @@
 //  Created by Denis Goldberg on 22.04.22.
 //
 
-import Foundation
 import UIKit
 
 ///**INTERNAL USE ONLY**
