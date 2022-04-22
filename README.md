@@ -20,10 +20,8 @@ dependencies: [
 ```
 Or use Xcode to add a package. See [Swift Package Documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
 ## Requirements
-- iOS 13.0+
-- macOS 11+
-- watchOS 6.3+
 - Swift 5.3+
+- iOS 13.0+ / macOS 11+ / watchOS 6.3+
 
 ## How to Use
 The wrapped property must implement `Encodable` on its own.
