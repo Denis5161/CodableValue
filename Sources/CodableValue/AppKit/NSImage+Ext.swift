@@ -6,6 +6,7 @@
 //
 
 #if canImport(AppKit)
+
 import AppKit
 
 extension NSImage: CodableValueSupported {
@@ -34,4 +35,5 @@ extension NSImage: CodableValueSupported {
         try container.encode(imageData)
     }
 }
+
 #endif

@@ -6,6 +6,7 @@
 //
 
 #if canImport(AppKit)
+
 import AppKit
 
 extension NSColor {
@@ -39,4 +40,5 @@ extension NSColor: CodableValueSupported {
     public func encode(to encoder: Encoder) throws { try rgba.encode(to: encoder) }
     
 }
+
 #endif
