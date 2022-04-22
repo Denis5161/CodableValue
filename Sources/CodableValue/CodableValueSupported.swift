@@ -5,7 +5,7 @@
 //  Created by Denis Goldberg on 22.04.22.
 //
 
-import UIKit
+import Foundation
 
 ///**INTERNAL USE ONLY**
 ///The types that conform to this protocol can be encoded and decdoded inside `CodableValue` as a wrapped property.
