@@ -8,15 +8,16 @@
 import UIKit
 
 extension UIImage: CodableValueSupported {
-    ///Compression Quality to be used for compressing a UIImage to JPEG data.
-    private enum CompressionQuality {
-        static let standard: CGFloat = 0.3
-    }
-    
     public static let type = SupportedCodableTypes.image
     
+    ///Compression Quality to be used for compressing a UIImage to JPEG data. Change the compression quality if needed.
+    public static var compressionQuality: CGFloat = 0.3
+    
+    ///Determines if UIImage encodes to JPEG. When set to `false`, encodes a png file.
+    public static var encodesToJPEG               = true
+
     public func encode(to encoder: Encoder) throws {
-        if let imageData = self.jpegData(compressionQuality: CompressionQuality.standard) {
+        if let imageData = Self.encodesToJPEG ? jpegData(compressionQuality: Self.compressionQuality) : pngData() {
             var container = encoder.singleValueContainer()
             try container.encode(imageData)
         }
