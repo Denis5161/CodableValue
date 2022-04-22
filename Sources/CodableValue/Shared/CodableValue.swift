@@ -4,9 +4,11 @@
 //
 //  Created by Denis Goldberg on 20.04.22.
 //
-
+#if canImport(UIKit)
 import UIKit
-
+#elseif canImport(AppKit)
+import AppKit
+#endif
 ///A property wrapper that adds Codable conformance to a generic type `T`, when the type cannot directly conform to Codable.
 ///
 ///The Type `T` implements the `Encodable` protocol and is restricted to be one of the `SupportedCodableTypes` inside the property wrapper.
@@ -25,9 +27,17 @@ public struct CodableValue<T: CodableValueSupported>: Codable {
     public init(from decoder: Decoder) throws {
         switch T.type {
         case .color:
+            #if canImport(UIKit)
             wrappedValue = try Self.decode(UIColor.self, from: decoder, with: [UIColor.ColorRGBA : CGFloat]?.self, initializer: UIColor.init(from:))
+            #elseif canImport(AppKit)
+            wrappedValue = try Self.decode(NSColor.self, from: decoder, with: [NSColor.ColorRGBA : CGFloat]?.self, initializer: NSColor.init(from:))
+            #endif
         case .image:
+            #if canImport(UIKit)
             wrappedValue = try Self.decode(UIImage.self, from: decoder, with: Data?.self, initializer: UIImage.init(data:))
+            #elseif canImport(AppKit)
+            wrappedValue = try Self.decode(NSImage.self, from: decoder, with: Data?.self, initializer: NSImage.init(data:))
+            #endif
         }
     }
     

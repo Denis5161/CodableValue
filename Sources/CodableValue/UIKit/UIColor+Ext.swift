@@ -4,7 +4,7 @@
 //
 //  Created by Denis Goldberg on 20.04.22.
 //
-
+#if canImport(UIKit)
 import UIKit
 
 extension UIColor {
@@ -35,8 +35,7 @@ extension UIColor {
 extension UIColor: CodableValueSupported {
     public static let type = SupportedCodableTypes.color
     
-    public func encode(to encoder: Encoder) throws {
-            var container = encoder.singleValueContainer()
-            try container.encode(rgba)
-        }
+    public func encode(to encoder: Encoder) throws { try rgba.encode(to: encoder) }
 }
+
+#endif

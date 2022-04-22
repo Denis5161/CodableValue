@@ -1,9 +1,11 @@
 //
-//  CodableValueTests.swift
+//  TestsAppKit.swift
 //  
 //
-//  Created by Denis Goldberg on 20.04.22.
+//  Created by Denis Goldberg on 22.04.22.
 //
+
+#if canImport(AppKit)
 
 import XCTest
 @testable import CodableValue
@@ -21,15 +23,15 @@ final class CodableValueTests: XCTestCase {
         
         let decoder = JSONDecoder()
         
-        XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage?>.self, from: encoded))
-        let decodedOptionalImage = try! decoder.decode(CodableValue<UIImage?>.self, from: encoded)
+        XCTAssertNoThrow(try decoder.decode(CodableValue<NSImage?>.self, from: encoded))
+        let decodedOptionalImage = try! decoder.decode(CodableValue<NSImage?>.self, from: encoded)
         
-        XCTAssertEqual(TestImage.compressedImage?.pngData(), decodedOptionalImage.wrappedValue?.pngData())
+        XCTAssertEqual(TestImage.compressedImage?.data(), decodedOptionalImage.wrappedValue?.data())
         
     }
     
     func testCodableOptionalNilImage() {
-        let optionalImage = CodableValue(wrappedValue: nil as UIImage?)
+        let optionalImage = CodableValue(wrappedValue: nil as NSImage?)
         
         XCTAssertNoThrow(try encoder.encode(optionalImage))
         
@@ -37,8 +39,8 @@ final class CodableValueTests: XCTestCase {
         
         let decoder = JSONDecoder()
         
-        XCTAssertThrowsError(try decoder.decode(CodableValue<UIImage>.self, from: encoded))
-        XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage?>.self, from: encoded))
+        XCTAssertThrowsError(try decoder.decode(CodableValue<NSImage>.self, from: encoded))
+        XCTAssertNoThrow(try decoder.decode(CodableValue<NSImage?>.self, from: encoded))
         
     }
     
@@ -51,44 +53,44 @@ final class CodableValueTests: XCTestCase {
 
         let decoder = JSONDecoder()
 
-        XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage>.self, from: encoded))
-        let decodedImage = try! decoder.decode(CodableValue<UIImage>.self, from: encoded)
+        XCTAssertNoThrow(try decoder.decode(CodableValue<NSImage>.self, from: encoded))
+        let decodedImage = try! decoder.decode(CodableValue<NSImage>.self, from: encoded)
 
-        XCTAssertEqual(TestImage.compressedImage?.pngData(), decodedImage.wrappedValue.pngData())
+        XCTAssertEqual(TestImage.compressedImage?.data(), decodedImage.wrappedValue.data())
     }
     
     func testCodableOptionalColor() {
-        let optionalColor = CodableValue(wrappedValue: UIColor.init(red: 1, green: 1, blue: 1, alpha: 1) as UIColor?)
+        let optionalColor = CodableValue(wrappedValue: NSColor.init(red: 1, green: 1, blue: 1, alpha: 1) as NSColor?)
         
         XCTAssertNoThrow(try encoder.encode(optionalColor))
         
         let encoded = try! encoder.encode(optionalColor)
         
-        XCTAssertNoThrow(try decoder.decode(CodableValue<UIColor?>.self, from: encoded))
-        let decodedOptionalColor = try! decoder.decode(CodableValue<UIColor?>.self, from: encoded)
+        XCTAssertNoThrow(try decoder.decode(CodableValue<NSColor?>.self, from: encoded))
+        let decodedOptionalColor = try! decoder.decode(CodableValue<NSColor?>.self, from: encoded)
         
         XCTAssertEqual(optionalColor, decodedOptionalColor)
     }
     
     func testCodableOptionalNilColor() {
-        let optionalColor = CodableValue(wrappedValue: nil as UIColor?)
+        let optionalColor = CodableValue(wrappedValue: nil as NSColor?)
         
         XCTAssertNoThrow(try encoder.encode(optionalColor))
         let encoded = try! encoder.encode(optionalColor)
 
-        XCTAssertThrowsError(try decoder.decode(CodableValue<UIColor>.self, from: encoded))
-        XCTAssertNoThrow(try decoder.decode(CodableValue<UIColor?>.self, from: encoded))
+        XCTAssertThrowsError(try decoder.decode(CodableValue<NSColor>.self, from: encoded))
+        XCTAssertNoThrow(try decoder.decode(CodableValue<NSColor?>.self, from: encoded))
         
     }
     
     func testCodableNonOptionalColor() {
-        let color = CodableValue(wrappedValue: UIColor.init(red: 1, green: 1, blue: 1, alpha: 1))
+        let color = CodableValue(wrappedValue: NSColor.init(red: 1, green: 1, blue: 1, alpha: 1))
         
         XCTAssertNoThrow(try encoder.encode(color))
         
         let encoded = try! encoder.encode(color)
-        XCTAssertNoThrow(try decoder.decode(CodableValue<UIColor>.self, from: encoded))
-        let decodedColor = try! decoder.decode(CodableValue<UIColor>.self, from: encoded)
+        XCTAssertNoThrow(try decoder.decode(CodableValue<NSColor>.self, from: encoded))
+        let decodedColor = try! decoder.decode(CodableValue<NSColor>.self, from: encoded)
         
         XCTAssertEqual(color, decodedColor)
     }
@@ -96,8 +98,10 @@ final class CodableValueTests: XCTestCase {
 
 extension CodableValueTests {
     private enum TestImage {
-        static let image = UIImage(data: data)
-        static let compressedImage = UIImage(data: image!.jpegData(compressionQuality: 0.3)!)
+        static let image = NSImage(data: data)
+        static let compressedImage = NSImage(data: image!.data()!)
         static let data = try! Data(contentsOf: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift_logo.svg/2880px-Swift_logo.svg.png")!)
     }
 }
+
+#endif
