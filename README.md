@@ -24,8 +24,8 @@ The wrapped property must implement `Encodable` on its own.
 
 Declare a property wrapper on a property that you wish to use. For example:
 ```swift
-@CodableValue(type: .image) var image: UIImage? = nil
-@CodableValue(type: .color) var color: UIColor = .systemBlue
+@CodableValue var image: UIImage?
+@CodableValue var color: UIColor = .systemBlue
 ```
 
 When initializing the values, for example in an init method of a custom type:

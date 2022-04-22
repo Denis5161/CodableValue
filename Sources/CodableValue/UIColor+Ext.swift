@@ -15,12 +15,12 @@ extension UIColor {
     
     ///Initialize a `UIColor` from a dictionary with `CGFloat` values.
     ///- Parameter dict: The dictionary holds its values with `UIColor.ColorRGBA` keys. The values range from `0.0` to `1.0`.
-    convenience init(from dict: [UIColor.ColorRGBA : CGFloat]) {
+    convenience init(from dict: [ColorRGBA : CGFloat]) {
         self.init(red: dict[.red]!, green: dict[.green]!, blue: dict[.blue]!, alpha: dict[.alpha]!)
     }
     
     ///Returns the components that make up the color in the RGB color space.
-    var rgba: [UIColor.ColorRGBA : CGFloat] {
+    private var rgba: [ColorRGBA : CGFloat] {
         var red: CGFloat = 0.0,
             green: CGFloat = 0.0,
             blue: CGFloat = 0.0,
@@ -32,7 +32,9 @@ extension UIColor {
     }
 }
 
-extension UIColor: Encodable {
+extension UIColor: CodableValueSupported {
+    public static let type = SupportedCodableTypes.color
+    
     public func encode(to encoder: Encoder) throws {
             var container = encoder.singleValueContainer()
             try container.encode(rgba)

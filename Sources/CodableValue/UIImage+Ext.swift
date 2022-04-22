@@ -7,11 +7,13 @@
 
 import UIKit
 
-extension UIImage: Encodable {
+extension UIImage: CodableValueSupported {
     ///Compression Quality to be used for compressing a UIImage to JPEG data.
     private enum CompressionQuality {
         static let standard: CGFloat = 0.3
     }
+    
+    public static let type = SupportedCodableTypes.image
     
     public func encode(to encoder: Encoder) throws {
         if let imageData = self.jpegData(compressionQuality: CompressionQuality.standard) {
