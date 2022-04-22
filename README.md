@@ -42,6 +42,12 @@ init(image: UIImage?, color: UIColor) {
 }
 ```
 
+### Or in AppKit. For example:
+```swift
+@CodableValue var image: NSImage?
+@CodableValue var color: NSColor
+```
+
 ## Good to Know
 `CodableValue` conforms to `Equatable`, if the wrapped value also conforms to it.
 
