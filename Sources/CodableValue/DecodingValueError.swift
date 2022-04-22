@@ -8,7 +8,7 @@
 import Foundation
 
 ///Throwable error value when `CodableValue` cannot decode the requested value.
-public enum DecodingValueError<T>: Error {
+public enum DecodingValueError<Base, Requested>: Error {
     ///When the type of the decoded value does not match the type of the requested value.
     case decodingTypeMismatch
     ///When an nil value is found, even though the requested value needs a non optional value.
@@ -17,9 +17,9 @@ public enum DecodingValueError<T>: Error {
     var localizedDescription: String {
         switch self {
         case .decodingTypeMismatch:
-            return "Mismatching types. Could not cast UIImage to \(T.self)."
+            return "Mismatching types. Could not cast \(Base.self) to \(Requested.self)."
         case .nonOptionalDecodingError:
-            return "No data for key. Could not decode non-optional type \(T.self)"
+            return "No data for key. Could not decode non-optional type \(Requested.self)"
         }
     }
 }
