@@ -4,6 +4,7 @@
 //
 //  Created by Denis Goldberg on 22.04.22.
 //
+
 #if canImport(AppKit)
 import AppKit
 
