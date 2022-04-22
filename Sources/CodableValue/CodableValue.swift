@@ -55,3 +55,5 @@ public struct CodableValue<T: CodableValueSupported>: Codable {
 }
 
 extension CodableValue: Equatable where T: Equatable { }
+
+extension CodableValue: Hashable where T: Hashable { }
