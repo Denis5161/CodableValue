@@ -51,7 +51,7 @@ init(image: UIImage?, color: UIColor) {
 
 `CodableValue` conforms to `Hashable`, if the wrapped value also conforms to it.
 
-I have included a default extension on UIColor and UIImage for `Encodable`. Feel free to change the implementation.
+I have included a default extension on UIColor and UIImage, and NSColor and NSImage for `Encodable`. Feel free to change the implementation.
 
 ## Purpose of this Package
 The purpose of this package was for me to learn about Property Wrappers. Some types don't conform to Codable and can't synthesize the needed methods automatically. When a data model only has a few of these properties - while the rest support Codable - then it's better to have the compiler synthesize Codable conformance automatically instead of writing a lot of boilerplate code for properties that already support it. 
