@@ -4,6 +4,10 @@
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FDenis5161%2FCodableValue%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Denis5161/CodableValue)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FDenis5161%2FCodableValue%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Denis5161/CodableValue)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-orange)](https://www.swift.org/package-manager/)
+
+![GitHub last commit](https://img.shields.io/github/last-commit/Denis5161/CodableValue)
+[![GitHub license](https://img.shields.io/github/license/Denis5161/CodableValue)](https://github.com/Denis5161/CodableValue/blob/main/LICENSE)
 
 ## Installation
 Only Swift Package Manager is supported as of this release. I have no plans to support other package managers, like CocoaPods or Carthage.
