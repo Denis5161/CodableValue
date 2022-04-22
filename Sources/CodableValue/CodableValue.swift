@@ -43,11 +43,11 @@ public struct CodableValue<T: CodableValueSupported>: Codable {
     private static func decode<Base, DataDecoding: Decodable>(_ base: Base.Type, from decoder: Decoder, with dataDecoding: DataDecoding?.Type, initializer: (DataDecoding)->Base?) throws -> T {
         let container = try decoder.singleValueContainer()
         if let data = try? container.decode(dataDecoding) {
-            guard let initialized = initializer(data) as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
+            guard let initialized = initializer(data) as? T else { throw DecodingValueError<Base, T>.decodingTypeMismatch }
             return initialized
         } else {
-            guard T.self is ExpressibleByNilLiteral.Type else { throw DecodingValueError<T>.nonOptionalDecodingError }
-            guard let noValue = Base?.none as? T else { throw DecodingValueError<T>.decodingTypeMismatch }
+            guard T.self is ExpressibleByNilLiteral.Type else { throw DecodingValueError<Base, T>.nonOptionalDecodingError }
+            guard let noValue = Base?.none as? T else { throw DecodingValueError<Base, T>.decodingTypeMismatch }
             return noValue
         }
         
