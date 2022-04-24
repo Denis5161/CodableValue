@@ -19,6 +19,7 @@ dependencies: [
 ]
 ```
 Or use Xcode to add a package. See [Swift Package Documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
+
 ## Requirements
 - Swift 5.3+
 - iOS 13.0+ || macOS 11+ || watchOS 6.3+
@@ -29,6 +30,7 @@ The wrapped property must implement `Encodable` on its own.
 `@CodableValue` can encode/ decode the following types:
 - images (UIImage & NSImage)
 - colors (UIColor & NSColor)
+
 The property wrapper is designed to be very transparent to the API user. Optionals work with the same property wrapper.
 
 Declare a property wrapper on a property that you wish to use. For example:
