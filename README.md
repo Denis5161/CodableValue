@@ -26,6 +26,11 @@ Or use Xcode to add a package. See [Swift Package Documentation](https://github.
 ## How to Use
 The wrapped property must implement `Encodable` on its own.
 
+`@CodableValue` can encode/ decode the following types:
+- images (UIImage & NSImage)
+- colors (UIColor & NSColor)
+The property wrapper is designed very transparent to the API user. Optionals work with the same property wrapper.
+
 Declare a property wrapper on a property that you wish to use. For example:
 ```swift
 @CodableValue var image: UIImage?
@@ -51,7 +56,7 @@ init(image: UIImage?, color: UIColor) {
 
 `CodableValue` conforms to `Hashable`, if the wrapped value also conforms to it.
 
-I have included a default extension on UIColor and UIImage, and NSColor and NSImage for `Encodable`. Feel free to change the implementation.
+I have included a default extension on UIColor and UIImage, and NSColor and NSImage for `Encodable`.
 
 ## Purpose of this Package
 The purpose of this package was for me to learn about Property Wrappers. Some types don't conform to Codable and can't synthesize the needed methods automatically. When a data model only has a few of these properties - while the rest support Codable - then it's better to have the compiler synthesize Codable conformance automatically instead of writing a lot of boilerplate code for properties that already support it. 
