@@ -29,7 +29,7 @@ The wrapped property must implement `Encodable` on its own.
 `@CodableValue` can encode/ decode the following types:
 - images (UIImage & NSImage)
 - colors (UIColor & NSColor)
-The property wrapper is designed very transparent to the API user. Optionals work with the same property wrapper.
+The property wrapper is designed to be very transparent to the API user. Optionals work with the same property wrapper.
 
 Declare a property wrapper on a property that you wish to use. For example:
 ```swift
