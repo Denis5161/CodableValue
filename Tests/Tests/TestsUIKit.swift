@@ -21,8 +21,6 @@ final class CodableValueTests: XCTestCase {
         
         let encoded = try! encoder.encode(optionalImage)
         
-        let decoder = JSONDecoder()
-        
         XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage?>.self, from: encoded))
         let decodedOptionalImage = try! decoder.decode(CodableValue<UIImage?>.self, from: encoded)
         
@@ -37,8 +35,6 @@ final class CodableValueTests: XCTestCase {
         
         let encoded = try! encoder.encode(optionalImage)
         
-        let decoder = JSONDecoder()
-        
         XCTAssertThrowsError(try decoder.decode(CodableValue<UIImage>.self, from: encoded))
         XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage?>.self, from: encoded))
         
@@ -50,8 +46,6 @@ final class CodableValueTests: XCTestCase {
         XCTAssertNoThrow(try encoder.encode(image))
 
         let encoded = try! encoder.encode(image)
-
-        let decoder = JSONDecoder()
 
         XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage>.self, from: encoded))
         let decodedImage = try! decoder.decode(CodableValue<UIImage>.self, from: encoded)
@@ -101,7 +95,7 @@ extension CodableValueTests {
     private enum TestImage {
         static let image = UIImage(data: data)
         static let compressedImage = UIImage(data: image!.data()!)
-        static let data = try! Data(contentsOf: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift_logo.svg/2880px-Swift_logo.svg.png")!)
+        static let data = try! Data(contentsOf: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift_logo.svg/2880px-Swift_logo.png")!)
     }
 }
 

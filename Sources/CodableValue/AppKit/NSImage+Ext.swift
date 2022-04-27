@@ -17,7 +17,7 @@ extension NSImage {
     public static var encodingFileType: NSBitmapImageRep.FileType = .jpeg
     
     ///Returns the data representation for the Image.
-    func data(for fileType: NSBitmapImageRep.FileTyp = encodingFileType) -> Data? {
+    func data(for fileType: NSBitmapImageRep.FileType = encodingFileType) -> Data? {
         if let cgImage = cgImage(forProposedRect: nil, context: nil, hints: nil) {
             let bitmapRep = NSBitmapImageRep(cgImage: cgImage)
             if let data = bitmapRep.representation(using: fileType, properties: [:]) {
