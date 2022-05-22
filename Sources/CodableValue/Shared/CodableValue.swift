@@ -13,11 +13,23 @@ import AppKit
 ///
 ///The Type `T` implements the `Encodable` protocol and is restricted to be one of the `SupportedCodableTypes` inside the property wrapper.
 ///
-///- Note: If appending a property observer to your wrapped property, then make sure to apply any changes to the **\_wrappedValue** property! Otherwise code will crash with bad access.
+///- Note: If appending a property observer to your wrapped property, then make sure to apply any changes to the **$\<Your Value\>** property! Otherwise code will crash with bad access.
 @propertyWrapper
 public struct CodableValue<T: CodableValueSupported>: Codable {
     
+    ///CodableValue encodes its wrapped value as the specified image type.
+    ///- Note: Only for Images.
+    var imageEncodingFileType  = ImageEncodingFileTypes.jpeg
+    
+    #if canImport(UIKit)
+    ///The JPEG compression quality to use, if the wrapped value should be encoded as jpeg data.
+    ///- Note: Only for UIImages.
+    var imageEncodingCompression = 0.3
+    #endif
+    
     public var wrappedValue: T
+    
+    public var projectedValue: T { get { wrappedValue } set { wrappedValue = newValue } }
     
     ///Initializes `CodableValue`.
     ///
@@ -41,7 +53,21 @@ public struct CodableValue<T: CodableValueSupported>: Codable {
         }
     }
     
-    public func encode(to encoder: Encoder) throws { try wrappedValue.encode(to: encoder) }
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch T.type {
+        case .color:
+            try container.encode(wrappedValue)
+        case .image:
+            #if canImport(UIKit)
+            let data = UIImage.data(from: wrappedValue as? UIImage, for: imageEncodingFileType, with: imageEncodingCompression)
+            #elseif canImport(Appkit)
+            let data = NSImage.data(from: wrappedValue as? NSImage, for: imageEncodingFileType)
+            #endif
+            
+            try container.encode(data)
+        }
+    }
     
     ///Modular function to simplify the code base.
     /// - Parameters:
@@ -65,6 +91,8 @@ public struct CodableValue<T: CodableValueSupported>: Codable {
         
     }
 }
+//MARK: - Protocol Conformances
+//Putting these extensions here, instead of in a separate file, so that the compiler can automatically generate the conformances for CodableValue.
 
 extension CodableValue: Equatable where T: Equatable { }
 
