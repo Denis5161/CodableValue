@@ -30,9 +30,7 @@ extension NSImage: CodableValueSupported {
     public static let type = SupportedCodableTypes.image
     
     public func encode(to encoder: Encoder) throws {
-        let imageData = Self.data(from: self)
-        var container = encoder.singleValueContainer()
-        try container.encode(imageData)
+        preconditionFailure("This function should not be called directly. Use the CodableValue property wrapper to encode and decode images.")
     }
     
 }

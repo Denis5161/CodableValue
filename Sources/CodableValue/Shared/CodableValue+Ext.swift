@@ -48,7 +48,7 @@ extension CodableValue where T == UIImage? {
 #elseif canImport(AppKit)
 import AppKit
 
-extension CodableValue where T: NSImage {
+extension CodableValue where T == NSImage {
     ///Initializes `CodableValue`.
     ///
     ///This initializer enables encoding of different types of image file types (jpeg, png).

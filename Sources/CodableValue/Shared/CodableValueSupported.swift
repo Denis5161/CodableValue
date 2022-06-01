@@ -17,7 +17,7 @@ public protocol CodableValueSupported: Encodable {
 }
 
 
-///`CodableValue` supports Encoding and Decoding of these UIKit types.
+///`CodableValue` supports Encoding and Decoding of these types.
 ///
 /// - Important: Using mismatching types will throw a `DecodingValueError` when `CodableValue` is initialized from a Decoder.
 public enum SupportedCodableTypes: String, Codable { case image, color }
