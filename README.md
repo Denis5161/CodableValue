@@ -15,7 +15,7 @@ Only Swift Package Manager is supported as of this release. I have no plans to s
 Add these lines inside an existing `Packages.swift` file:
 ```swift
 dependencies: [
-    .package(url: "https://github.com/Denis5161/CodableValue.git", from: "5.0.1")
+    .package(url: "https://github.com/Denis5161/CodableValue.git", from: "6.0.0")
 ]
 ```
 Or use Xcode to add a package. See [Swift Package Documentation](https://github.com/apple/swift-package-manager/tree/master/Documentation) for more info.
@@ -25,19 +25,17 @@ Or use Xcode to add a package. See [Swift Package Documentation](https://github.
 - iOS 13.0+ || macOS 11+ || watchOS 6.3+
 
 ## How to Use
-The wrapped property must implement `Encodable` on its own.
-
 `@CodableValue` can encode/ decode the following types:
-- images (UIImage & NSImage)
-- colors (UIColor & NSColor)
+- images (UIImage/NSImage)
+- colors (UIColor/NSColor)
 
 The property wrapper is designed to be very transparent to the API user. Optionals work with the same property wrapper.
 
 Declare a property wrapper on a property that you wish to use. For example:
 ```swift
 @CodableValue var image: UIImage?
-@CodableValue(encodesTo: .png) var image = UIImage(systemName: "swift")
-@CodableValue(encodesTo: .jpeg, withCompression: 0.3) var image = UIImage(systemName: "swift")
+@CodableValue var image = UIImage(systemName: "swift")!
+
 
 @CodableValue var color: UIColor = .systemBlue
 ```
@@ -52,7 +50,7 @@ init(image: UIImage?, color: UIColor) {
 
 ### Or in AppKit. For example:
 ```swift
-@CodableValue(encodesTo: .png) var image: NSImage?
+@CodableValue var image: NSImage?
 @CodableValue var color: NSColor
 ```
 
@@ -60,8 +58,6 @@ init(image: UIImage?, color: UIColor) {
 `CodableValue` conforms to `Equatable`, if the wrapped value also conforms to it.
 
 `CodableValue` conforms to `Hashable`, if the wrapped value also conforms to it.
-
-I have included a default extension on UIColor and UIImage, and NSColor and NSImage for `Encodable`.
 
 ## Purpose of this Package
 The purpose of this package was for me to learn about Property Wrappers. Some types don't conform to Codable and can't synthesize the needed methods automatically. When a data model only has a few of these properties - while the rest support Codable - then it's better to have the compiler synthesize Codable conformance automatically instead of writing a lot of boilerplate code for properties that already support it. 

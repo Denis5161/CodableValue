@@ -24,7 +24,7 @@ final class CodableValueTests: XCTestCase {
         XCTAssertNoThrow(try decoder.decode(CodableValue<NSImage?>.self, from: encoded))
         let decodedOptionalImage = try! decoder.decode(CodableValue<NSImage?>.self, from: encoded)
         
-        XCTAssertEqual(NSImage.data(from: TestImage.compressedImage), NSImage.data(from: decodedOptionalImage.wrappedValue))
+        XCTAssertEqual(TestImage.imageData, TestImage.data(from: decodedOptionalImage.wrappedValue))
         
     }
     
@@ -50,7 +50,7 @@ final class CodableValueTests: XCTestCase {
         XCTAssertNoThrow(try decoder.decode(CodableValue<NSImage>.self, from: encoded))
         let decodedImage = try! decoder.decode(CodableValue<NSImage>.self, from: encoded)
 
-        XCTAssertEqual(NSImage.data(from: TestImage.compressedImage), NSImage.data(from: decodedImage.wrappedValue))
+        XCTAssertEqual(TestImage.imageData, TestImage.data(from: decodedImage.wrappedValue)!)
     }
     
     func testCodableOptionalColor() {
@@ -93,8 +93,22 @@ final class CodableValueTests: XCTestCase {
 extension CodableValueTests {
     private enum TestImage {
         static let image = NSImage(data: data)
-        static let compressedImage = NSImage(data: NSImage.data(from: image)!)
+        static let imageData = data(from: image)
         static let data = try! Data(contentsOf: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift_logo.svg/2880px-Swift_logo.png")!)
+        
+        ///Returns the data representation for the image.
+        fileprivate static func data(from image: NSImage?, for fileType: ImageEncodingFileTypes = .jpeg) -> Data? {
+            if let cgImage = image?.cgImage(forProposedRect: nil, context: nil, hints: nil) {
+                let bitmapRep = NSBitmapImageRep(cgImage: cgImage)
+                switch fileType {
+                case .jpeg:
+                    return bitmapRep.representation(using: .jpeg, properties: [:])
+                case .png:
+                    return bitmapRep.representation(using: .png, properties: [:])
+                }
+            }
+            return nil
+        }
     }
 }
 

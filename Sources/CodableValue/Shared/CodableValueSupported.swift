@@ -11,7 +11,7 @@ import Foundation
 ///The types that conform to this protocol can be encoded and decdoded inside `CodableValue` as a wrapped property.
 ///
 ///- Attention: This protocol is intended for internal use only and should not be used in your codebase.
-public protocol CodableValueSupported: Encodable {
+public protocol CodableValueSupported {
     ///The type that `CodableValue` supports and will use to decode the correct type.
     static var type: SupportedCodableTypes { get }
 }

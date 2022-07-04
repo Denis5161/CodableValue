@@ -24,7 +24,7 @@ final class CodableValueTests: XCTestCase {
         XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage?>.self, from: encoded))
         let decodedOptionalImage = try! decoder.decode(CodableValue<UIImage?>.self, from: encoded)
         
-        XCTAssertEqual(UIImage.data(from: TestImage.compressedImage), UIImage.data(from: decodedOptionalImage.wrappedValue))
+        XCTAssertEqual(TestImage.imageData, TestImage.data(from: decodedOptionalImage.wrappedValue))
         
     }
     
@@ -50,7 +50,7 @@ final class CodableValueTests: XCTestCase {
         XCTAssertNoThrow(try decoder.decode(CodableValue<UIImage>.self, from: encoded))
         let decodedImage = try! decoder.decode(CodableValue<UIImage>.self, from: encoded)
 
-        XCTAssertEqual(UIImage.data(from: TestImage.compressedImage), UIImage.data(from: decodedImage.wrappedValue))
+        XCTAssertEqual(TestImage.imageData, TestImage.data(from: decodedImage.wrappedValue))
     }
     
     func testCodableOptionalColor() {
@@ -94,8 +94,19 @@ final class CodableValueTests: XCTestCase {
 extension CodableValueTests {
     private enum TestImage {
         static let image = UIImage(data: data)
-        static let compressedImage = UIImage(data: UIImage.data(from: image)!)
+        static let imageData = data(from: image)
         static let data = try! Data(contentsOf: URL(string: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift_logo.svg/2880px-Swift_logo.png")!)
+        
+        ///Returns the UIImage either as png or jpegData
+        ///- Note: When the file type is `.png` the compression quality is ignored.
+        static func data(from image: UIImage?, for fileType: ImageEncodingFileTypes = .jpeg, with compression: CGFloat = 0.3) -> Data? {
+            switch fileType {
+            case .jpeg:
+                return image?.jpegData(compressionQuality: compression)
+            case .png:
+                return image?.pngData()
+            }
+        }
     }
 }
 
