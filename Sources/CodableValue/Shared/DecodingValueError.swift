@@ -13,8 +13,10 @@ public enum DecodingValueError<Base, Requested>: Error {
     case decodingTypeMismatch
     ///When an nil value is found, even though the requested value needs a non optional value.
     case nonOptionalDecodingError
-    
-    var localizedDescription: String {
+}
+
+extension DecodingValueError: LocalizedError {
+    public var errorDescription: String? {
         switch self {
         case .decodingTypeMismatch:
             return "Mismatching types. Could not cast \(Base.self) to \(Requested.self)."
