@@ -11,7 +11,7 @@ import Foundation
 public enum DecodingValueError<Base, Requested>: Error {
     ///When the type of the decoded value does not match the type of the requested value.
     case decodingTypeMismatch
-    ///When an nil value is found, even though the requested value needs a non optional value.
+    ///When a nil value is found, even though the requested value needs a non-optional value.
     case nonOptionalDecodingError
 }
 
