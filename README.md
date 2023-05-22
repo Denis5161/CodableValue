@@ -1,6 +1,6 @@
 # CodableValue
 
-**Decode UIColor and UIImage (UIKit) and NSColor and NSImage (AppKit) by utilizing Swift's Property Wrappers included in Swift 5.1**
+**Decode UIColor and UIImage (UIKit), and NSColor and NSImage (AppKit) by utilizing Swift's Property Wrappers included in Swift 5.1**
 
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FDenis5161%2FCodableValue%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/Denis5161/CodableValue)
 [![](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2FDenis5161%2FCodableValue%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/Denis5161/CodableValue)
@@ -34,7 +34,7 @@ The property wrapper is designed to be very transparent to the API user. Optiona
 Declare a property wrapper on a property that you wish to use. For example:
 ```swift
 @CodableValue var image: UIImage?
-@CodableValue var image = UIImage(systemName: "swift")!
+@CodableValue var swiftImage = UIImage(systemName: "swift")!
 
 
 @CodableValue var color: UIColor = .systemBlue
